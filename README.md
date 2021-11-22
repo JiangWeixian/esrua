@@ -20,7 +20,7 @@ export const welcome = (msg: string) => {
 }
 ```
 
-run `esrua ./index.ts welcome`
+run `esrua ./index.ts welcome -p world`
 
 ## development
 
