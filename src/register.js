@@ -7,8 +7,11 @@ const params = argv.p
 
 addHook(
   (code) => {
-    const stringfiedParams = JSON.stringify(params)
-    // return `${code} console.log(JSON.parse('${stringfiedParams}'))`
+    if (!funcName) {
+      console.error('Please exec script function like `esrua file function-name`')
+      return code
+    }
+    const stringfiedParams = JSON.stringify(params || [])
     return `${code}  ${funcName}(...JSON.parse('${stringfiedParams}'))`
   },
   { exts: ['.ts'] },
