@@ -2,6 +2,7 @@ const addHook = require('pirates').addHook
 
 const argv = require('yargs-parser')(process.argv.slice(2), { array: 'p' })
 
+const scriptFilename = process.argv[1]
 const funcName = argv._[0]
 const params = argv.p
 
@@ -14,5 +15,5 @@ addHook(
     const stringfiedParams = JSON.stringify(params || [])
     return `${code}  ${funcName}(...JSON.parse('${stringfiedParams}'))`
   },
-  { exts: ['.ts'] },
+  { exts: ['.ts', '.tsx', '.js', '.jsx'], matcher: (filename) => filename === scriptFilename },
 )
