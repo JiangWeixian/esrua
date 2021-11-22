@@ -1,0 +1,86 @@
+{
+  "name": "esrua",
+  "version": "0.0.0",
+  "description": "run function in script with esbuild",
+  "keywords": [
+    "run-func",
+    "esrua",
+    "esno",
+    "esbuild",
+    "typescript"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/JiangWeixian/esrua#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JiangWeixian/esrua.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JiangWeixian/esrua/issues",
+    "email": "jiangweixian1994@gmail.com"
+  },
+  "author": {
+    "name": "JW",
+    "email": "jiangweixian1994@gmail.com",
+    "url": "https://twitter.com/jiangweixian"
+  },
+  "files": [
+    "src"
+  ],
+  "main": "src/index.js",
+  "bin": {
+    "esrua": "src/index.js"
+  },
+  "scripts": {
+    "build": "rimraf lib && ttsc",
+    "run_dev": "rimraf lib && ttsc",
+    "dev": "npm-watch run_dev",
+    "test": "pnpm run build && jest",
+    "pretest": "pnpm run build",
+    "ci:publish": "pnpm run build && pnpx changeset publish",
+    "ci:version": "pnpx changeset version",
+    "ci:snapshot": "pnpx changeset version --snapshot beta",
+    "ci:prerelease": "pnpm run build && pnpx changeset publish --tag beta",
+    "lint:fix": "eslint . --fix",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "**/**/*.{js,ts,tsx,vue,json}": [
+      "eslint --fix"
+    ]
+  },
+  "dependencies": {
+    "cross-spawn": "^7.0.3",
+    "esbuild": "^0.13.15",
+    "esbuild-register": "^3.1.2",
+    "pirates": "^4.0.1",
+    "yargs-parser": "^21.0.0"
+  },
+  "devDependencies": {
+    "@aiou/eslint-config": "0.2.1",
+    "@changesets/cli": "^2.16.0",
+    "@types/jest": "26.0.23",
+    "cz-emoji": "^1.3.1",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.30.0",
+    "husky": "^7.0.0",
+    "jest": "27.0.6",
+    "lint-staged": "^11.0.1",
+    "np": "7.5.0",
+    "npm-watch": "0.10.0",
+    "prettier": "2.3.2",
+    "pretty-quick": "3.1.1",
+    "rimraf": "3.0.2",
+    "ts-jest": "27.0.3",
+    "ts-node": "10.0.0",
+    "tslib": "2.3.0",
+    "ttypescript": "^1.5.12",
+    "typescript": "^4.3.5",
+    "typescript-transform-paths": "^3.0.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-emoji"
+    }
+  }
+}
