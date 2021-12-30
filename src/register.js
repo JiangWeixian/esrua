@@ -1,4 +1,5 @@
 const addHook = require('pirates').addHook
+const pc = require('picocolors')
 
 const argv = require('yargs-parser')(process.argv.slice(2), { array: 'p' })
 
@@ -9,7 +10,7 @@ const params = argv.p
 addHook(
   (code) => {
     if (!funcName) {
-      console.error('Please exec script function like `esrua file function-name`')
+      console.error(`Try ${pc.green('esrua file function-name')}`)
       return code
     }
     const stringfiedParams = JSON.stringify(params || [])
