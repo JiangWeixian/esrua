@@ -12,7 +12,7 @@ pnpm add esrua -g
 
 ## features
 
-`index.ts`
+if `index.ts` contain
 
 ```ts
 export const welcome = (msg: string) => {
@@ -20,7 +20,7 @@ export const welcome = (msg: string) => {
 }
 ```
 
-run `esrua ./index.ts welcome -p world`
+run `esrua welcome -p world`, also specify filepath like `esrua <filepath> welcome -p world`
 
 ## development
 

@@ -10,7 +10,7 @@ const params = argv.p
 addHook(
   (code) => {
     if (!funcName) {
-      console.error(`Try ${pc.green('esrua file function-name')}`)
+      console.error(`Ops, Try run ${pc.green('esrua [filepath] [function]')}`)
       return code
     }
     const stringfiedParams = JSON.stringify(params || [])
