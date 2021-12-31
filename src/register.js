@@ -12,6 +12,8 @@ const params = argv.p
 const showFunctionList = () => {
   parse(fs.readFileSync(scriptFilename).toString()).then((res) => {
     const [, exports] = res
+    console.log(`Usage: ${pc.green('esrua [filepath] [function-name]')}`)
+    console.log()
     console.log(pc.cyan('Exported function will displayed here:'))
     console.log()
     exports.forEach((element) => {

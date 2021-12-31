@@ -20,7 +20,12 @@ export const welcome = (msg: string) => {
 }
 ```
 
-run `esrua welcome -p world`, also specify filepath like `esrua <filepath> welcome -p world`
+run `esrua welcome -p world`, also specify filepath is available, e.g. `esrua <filepath> welcome -p world`
+
+`options`
+
+- `--help` - list all exported function, e.g. `esura --help`
+- `-p` - function params, e.g. `esrua welcome -p world`
 
 ## development
 
