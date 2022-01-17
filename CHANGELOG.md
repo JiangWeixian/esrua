@@ -1,5 +1,11 @@
 # esrua
 
+## 0.2.1
+
+### Patch Changes
+
+- 2f121dd: patch target file only
+
 ## 0.2.0
 
 ### Minor Changes
