@@ -1,5 +1,11 @@
 # esrua
 
+## 0.0.0-beta-202201721613
+
+### Minor Changes
+
+- f777919: support load esm file
+
 ## 0.1.0
 
 ### Minor Changes
