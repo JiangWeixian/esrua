@@ -205,10 +205,14 @@ export function transformSource(source, context, defaultTransformSource) {
     if (!isWindows) filename = fileURLToPath(url)
 
     const { js } = esbuildTransformSync(source, filename, url, format)
-    const patched = patch(js)
+    if (url.includes(scriptFilename)) {
+      return {
+        source: patch(js),
+      }
+    }
 
     return {
-      source: patched,
+      source: js,
     }
   }
 
