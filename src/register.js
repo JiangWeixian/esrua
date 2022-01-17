@@ -35,5 +35,5 @@ addHook(
     const stringfiedParams = JSON.stringify(params || [])
     return `${code}  ${funcName}(...JSON.parse('${stringfiedParams}'))`
   },
-  { exts: ['.ts', '.tsx', '.js', '.jsx'], matcher: (filename) => filename === scriptFilename },
+  { exts: ['.ts', '.tsx'], matcher: (filename) => filename === scriptFilename },
 )

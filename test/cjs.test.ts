@@ -1,6 +1,6 @@
 import execa from 'execa'
 
-describe('index', () => {
+describe('cjs', () => {
   it('support pass function params', async () => {
     const { stdout } = await execa('node', [
       `${process.cwd()}/src/index.js`,
