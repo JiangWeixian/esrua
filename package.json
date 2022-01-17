@@ -1,6 +1,6 @@
 {
   "name": "esrua",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "run function in script with esbuild",
   "keywords": [
     "run-func",
