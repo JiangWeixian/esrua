@@ -1,5 +1,11 @@
 # esrua
 
+## 0.2.0
+
+### Minor Changes
+
+- a09de2f: support load esm file
+
 ## 0.1.0
 
 ### Minor Changes
