@@ -1,4 +1,5 @@
 import execa from 'execa'
+import { describe, it, expect } from 'vitest'
 
 describe('cjs', () => {
   it('support pass function params', async () => {
