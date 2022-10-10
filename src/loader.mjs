@@ -2,9 +2,8 @@
 import { URL, pathToFileURL, fileURLToPath } from 'url'
 import fs from 'fs'
 import { dirname } from 'path'
-import { transformSync, build } from 'esbuild'
+import { build } from 'esbuild'
 
-// #esrua
 import pc from 'picocolors'
 import { parse } from 'es-module-lexer'
 import yargsParser from 'yargs-parser'
@@ -41,9 +40,6 @@ const patch = (code) => {
   return `${code}  ${funcName}(...JSON.parse('${stringfiedParams}'))`
 }
 
-// #esm-node-loader
-const isWindows = process.platform === 'win32'
-
 const extensionsRegex = /\.m?(tsx?|json)$/
 
 async function esbuildResolve(id, dir) {
@@ -72,29 +68,6 @@ async function esbuildResolve(id, dir) {
     ],
   })
   return result
-}
-
-function esbuildTransformSync(rawSource, filename, url, format) {
-  const {
-    code: js,
-    warnings,
-    map: jsSourceMap,
-  } = transformSync(rawSource.toString(), {
-    sourcefile: filename,
-    sourcemap: 'both',
-    loader: new URL(url).pathname.match(extensionsRegex)[1],
-    target: `node${process.versions.node}`,
-    format: format === 'module' ? 'esm' : 'cjs',
-  })
-
-  if (warnings && warnings.length > 0) {
-    for (const warning of warnings) {
-      console.warn(warning.location)
-      console.warn(warning.text)
-    }
-  }
-
-  return { js, jsSourceMap }
 }
 
 function getTsCompatSpecifier(parentURL, specifier) {
@@ -155,6 +128,7 @@ export async function resolve(specifier, context, defaultResolve) {
       return {
         url: url.href,
         format: 'module',
+        shortCircuit: true,
       }
     }
     // Else, for other types, use default resolve with the valid path
@@ -164,58 +138,17 @@ export async function resolve(specifier, context, defaultResolve) {
   return defaultResolve(specifier, context, defaultResolve)
 }
 
-// New hook starting from Node v16.12.0
-// See: https://github.com/nodejs/node/pull/37468
-export function load(url, context, defaultLoad) {
+export async function load(url, context, defaultLoad) {
   if (extensionsRegex.test(new URL(url).pathname)) {
-    const { format } = context
-
-    let filename = url
-    if (!isWindows) filename = fileURLToPath(url)
-
-    const rawSource = fs.readFileSync(new URL(url), { encoding: 'utf8' })
-    const { js } = esbuildTransformSync(rawSource, filename, url, format)
-
-    return {
-      format: 'module',
-      source: js,
-    }
-  }
-
-  // Let Node.js handle all other format / sources.
-  return defaultLoad(url, context, defaultLoad)
-}
-
-export function getFormat(url, context, defaultGetFormat) {
-  if (extensionsRegex.test(new URL(url).pathname)) {
-    return {
-      format: 'module',
-    }
-  }
-
-  // Let Node.js handle all other URLs.
-  return defaultGetFormat(url, context, defaultGetFormat)
-}
-
-export function transformSource(source, context, defaultTransformSource) {
-  const { url, format } = context
-
-  if (extensionsRegex.test(new URL(url).pathname)) {
-    let filename = url
-    if (!isWindows) filename = fileURLToPath(url)
-
-    const { js } = esbuildTransformSync(source, filename, url, format)
+    const result = await defaultLoad(url, context, defaultLoad)
+    result.shortCircuit = true
     if (url.includes(scriptFilename)) {
-      return {
-        source: patch(js),
-      }
+      result.source = patch(result.source)
     }
 
-    return {
-      source: js,
-    }
+    return result
   }
 
   // Let Node.js handle all other sources.
-  return defaultTransformSource(source, context, defaultTransformSource)
+  return defaultLoad(url, context, defaultLoad)
 }
