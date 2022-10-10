@@ -33,10 +33,10 @@
   },
   "scripts": {
     "test": "NO_COLOR=1 node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "ci:publish": "pnpx changeset publish",
-    "ci:version": "pnpx changeset version",
-    "ci:snapshot": "pnpx changeset version --snapshot beta",
-    "ci:prerelease": "pnpx changeset publish --tag beta",
+    "ci:publish": "pnpm changeset publish",
+    "ci:version": "pnpm changeset version",
+    "ci:snapshot": "pnpm changeset version --snapshot beta",
+    "ci:prerelease": "pnpm changeset publish --tag beta",
     "lint:fix": "eslint . --fix",
     "prepare": "husky install"
   },
