@@ -1,5 +1,11 @@
 # esrua
 
+## 1.0.0
+
+### Major Changes
+
+- c52482c: esmrua require ^16.17, change loader related nodejs custom loader api breaking change
+
 ## 0.2.1
 
 ### Patch Changes
